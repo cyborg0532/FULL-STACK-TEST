@@ -1,33 +1,39 @@
 const mongoose = require('mongoose');
 
 const ProfileSchema = new mongoose.Schema({
-  Id: {
-    type: String,Number, 
-    required: true
-  },
-  Name: {
+  id: {
     type: String,
-    required: [true, 'Cant be empty'],
+    required: true,
+    unique: true,
+    immutable: true
+  },
+  name: {
+    type: String,
+    required: true,
+    trim: true
   },
   email: {
     type: String,
-    required: [true, 'valid email']
+    required: true,
+    trim: true,
+    lowercase: true,
+    match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   },
   phone: {
     type: String,
-    required: [true, 'cant be empty']
+    required: true,
+    trim: true
   },
   address: {
     type: String,
-    required: [true, 'cant be empty']
+    required: true,
+    trim: true
   },
-
-   age: {
+  age: {
     type: Number,
-    required: [true, 'valid number']
-  },
-}, {
-  timestamps: true 
-});
+    required: true,
+    min: 0
+  }
+}, { timestamps: true });
 
 module.exports = mongoose.model('Profile', ProfileSchema);
